@@ -1,0 +1,63 @@
+#include<stdio.h>
+int N=5;
+int top=-1;
+int a[5];
+void push()
+{
+    int x;
+    printf("Enter the element to enter: ");
+    scanf("%d",&x);
+    top=top+1;
+    a[top]=x;
+}
+void peek()
+{
+    if(top==-1)
+    {
+        printf("The stack is empty");
+    }
+    else
+    {
+         printf("the top element is %d\t",a[top]);
+    }
+}
+void pop()
+{
+    if(top==-1)
+    {
+        printf("The stack is empty");
+    }
+    else
+    {
+        printf("the deleted element is %d\n",a[top]);
+        top=top-1;
+    }
+}
+void display()
+{
+    int i;
+    for(i=top;i>=0;i--)
+    {
+        printf("%d\n",a[i]);
+    }
+}
+void main()
+{
+    int choice;
+    while(1)
+    {
+        printf("Enter the choice :");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case(1):push();
+                    break;
+            case(2):pop();
+                    break;
+            case(3):peek();
+                    break;
+            case(4):display();
+                    break;
+        }
+    }
+}
