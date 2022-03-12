@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *top=NULL;
+void push()
+{
+    int data;
+    struct node *nn;
+    printf("Enter the element: ");
+    scanf("%d",&data);
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=data;
+    nn->next=top;
+    top=nn;
+}
+void pop()
+{
+    struct node *temp=top;
+    top=temp->next;
+}
+void peer()
+{
+    printf("The top element is %d\n",top->data);
+}
+void display()
+{
+    struct node* temp=top;
+    while(temp->next!=NULL)
+    {
+        printf("%d\n",temp->data);
+        temp=temp->next;
+    }
+    printf("%d\n",temp->data);
+}
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf("Enter the choice :");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case(1):push();
+                    break;
+            case(2):pop();
+                    break;
+            case(3):peer();
+                    break;
+            case(4):display();
+                    break;
+        }
+    }
+}
