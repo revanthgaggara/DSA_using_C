@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    int coeff;
+    struct node *next;
+    int exp;
+}pl;
+pl *insert(pl *head,int coef,int exp)
+{
+    pl *temp;
+    pl *nn=(pl*)malloc(sizeof(pl));
+    nn->next=NULL;
+    nn->coeff=coef;
+    nn->exp=exp;
+    if(head==NULL || head->exp < exp)
+    {
+        nn->next=head;
+        head=nn;
+    }
+    else
+    {
+        temp=head;
+        while(temp->next!=NULL && temp->exp >=exp)
+        temp=temp->next;
+        nn->next=temp->next;
+        temp->next=nn;
+    }
+    return head;
+}
+pl* create(pl *head)
+{
+    int i,n,coef,pow;
+    printf("Enter the no of terms you want to enter: ");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("Enter the coeff of term %d :",i+1);
+        scanf("%d",&coef);
+        printf("Enter the pow of term %d :",i+1);
+        scanf("%d",&pow);
+        head=insert(head,coef,pow);
+    }
+    return head;
+}
+void print(pl *head3)
+{
+    pl *temp=head3;
+    while(temp!=NULL)
+    {
+        printf("%d^%d",temp->coeff,temp->exp);
+        if(temp->next!=NULL)
+        printf("+");
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void Addpolynomial(pl *head1,pl* head2)
+{
+    pl *head3=NULL;
+    pl *temp1=head1;
+    pl *temp2=head2;
+    while(temp1!=NULL && temp2!=NULL)
+    {
+        if(temp1->exp==temp2->exp)
+        {
+            head3=insert(head3,temp1->coeff+temp2->coeff,temp1->exp);
+            temp1=temp1->next;
+            temp2=temp2->next;
+        }
+        else if(temp1->exp > temp2->exp)
+        {
+            head3=insert(head3,temp1->coeff,temp1->exp);
+            temp1=temp1->next;
+        }
+        else if(temp1->exp < temp2->exp)
+        {
+            head3=insert(head3,temp2->coeff,temp2->exp);
+            temp2=temp2->next;
+        }
+    }
+    while(temp1!=NULL)
+    {
+        head3=insert(head3,temp1->coeff,temp1->exp);
+        temp1=temp1->next;
+    }
+    while(temp2!=NULL)
+    {
+         head3=insert(head3,temp2->coeff,temp2->exp);
+         temp2=temp2->next;
+    }
+    printf("After addition the polynomial is :");
+    print(head3);
+}
+int main()
+{
+    pl *head1=NULL,*head2=NULL;
+    printf("Enter the 1st polynomial\n");
+    head1=create(head1);
+    printf("Enter the 2nd polynomial\n");
+    head2=create(head2);
+    Addpolynomial(head1,head2);
+    return 0;
+}
+
